@@ -1,7 +1,5 @@
 package miun.se.laboration1.weatherapp;
 
-import android.os.Looper;
-
 import java.io.IOException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
