@@ -26,6 +26,27 @@ public class FirstFragment extends Fragment {
 
     }
 
+    /**
+     * Weather Api Call
+     */
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        WeatherApi api = new WeatherApi();
+        api.getWeather(new WeatherApi.WeatherCallback() {
+            @Override
+            public void onResult(String jsonData) {
+                binding.weatherView.setText(jsonData);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                binding.weatherView.setText("Error: " + e.getMessage());
+            }
+        });
+    }
+
+
 
 
     @Override
