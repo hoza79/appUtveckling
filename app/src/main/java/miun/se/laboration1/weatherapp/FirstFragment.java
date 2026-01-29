@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 import miun.se.laboration1.weatherapp.databinding.FragmentFirstBinding;
 
@@ -32,22 +31,22 @@ public class FirstFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        // Create new WeatherApi object
         WeatherApi api = new WeatherApi();
-        api.getWeather(new WeatherApi.WeatherCallback() {
+        // Call getWeather method in object. Format = "json" or "xml"
+        api.getWeather("xml", new WeatherApi.WeatherCallback() {
             @Override
-            public void onResult(String jsonData) {
-                binding.weatherView.setText(jsonData);
+            public void onResult(String fetchData) {
+                binding.weatherView.setText(fetchData);
             }
 
             @Override
             public void onError(Exception e) {
-                binding.weatherView.setText("Error: " + e.getMessage());
+                String errorOut = "Error: " + e.getMessage();
+                binding.weatherView.setText(errorOut);
             }
         });
     }
-
-
-
 
     @Override
     public void onDestroyView() {
