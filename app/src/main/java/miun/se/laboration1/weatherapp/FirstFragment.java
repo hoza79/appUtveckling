@@ -14,6 +14,9 @@ public class FirstFragment extends Fragment {
 
     private FragmentFirstBinding binding;
 
+    private AsyncWeatherWorker<String> worker;
+    private BasicWeatherApi weatherApi;
+
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -32,21 +35,24 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Create new WeatherApi object
-        WeatherApi api = new WeatherApi();
-        // Call getWeather method in object. Format = "json" or "xml"
-        api.getWeather("xml", new WeatherApi.WeatherCallback() {
-            @Override
-            public void onResult(String fetchData) {
-                binding.weatherView.setText(fetchData);
-            }
 
-            @Override
-            public void onError(Exception e) {
-                String errorOut = "Error: " + e.getMessage();
-                binding.weatherView.setText(errorOut);
-            }
-        });
-    }
+        worker = new AsyncWeatherWorker<>();
+        weatherApi = new BasicWeatherApi();
+
+        worker.start(() -> { return weatherApi.fetchWeather("XML"); },
+
+                new AsyncWeatherWorker.UiCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        binding.weatherView.setText(result);
+                    }
+
+                    public void onError(Throwable error) {
+                        String errOut = "Error: " + error.getMessage();
+                        binding.weatherView.setText(errOut);
+                    }
+                }
+        );}
 
     @Override
     public void onDestroyView() {
