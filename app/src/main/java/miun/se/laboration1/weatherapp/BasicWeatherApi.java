@@ -16,6 +16,9 @@ public class BasicWeatherApi {
 
     private final OkHttpClient client = new OkHttpClient();
 
+    private static final String urlJSON = "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=62.3908&lon=17.3069";
+    private static final String urlXML = "https://api.met.no/weatherapi/locationforecast/2.0/classic?lat=62.3908&lon=17.3069";
+
     /**
      * fetchWeather method.
      * - Fetch the weather data from API in raw string format
@@ -28,9 +31,9 @@ public class BasicWeatherApi {
         String url;
 
         if (format.equalsIgnoreCase("JSON")) {
-            url = "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=62.3908&lon=17.3069";
+            url = urlJSON;
         } else if (format.equalsIgnoreCase("XML")) {
-            url = "https://api.met.no/weatherapi/locationforecast/2.0/classic?lat=62.3908&lon=17.3069";
+            url = urlXML;
         } else {
             throw new IllegalArgumentException(
                     "Invalid format: " + format + ". Use JSON or XML."
