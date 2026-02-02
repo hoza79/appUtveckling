@@ -26,24 +26,28 @@ public class XmlParser {
             XPath xpath = xPathFactory.newXPath();
             String objectPath = "/weatherdata/product/time[1]/location";
 
-            String temperatureStr = xpath.evaluate(objectPath + "/temperature/@value", document).parseDouble();
-            double temperature = Double.parseDouble(temperatureStr);
+            double temperature = Double.parseDouble(xpath.evaluate(objectPath + "/temperature/@value", document));
+
+
 
             String windSpeedStr = xpath.evaluate(objectPath + "/windSpeed/@mps", document);
             double windSpeed = Double.parseDouble(windSpeedStr);
 
             String cloudinessStr = xpath.evaluate(objectPath + "/cloudiness/@percent", document);
             double cloudiness = Double.parseDouble(cloudinessStr);
+            double precipitation = Double.parseDouble(xpath.evaluate(objectPath + "/precipitation/@value", document));
+            String symbol = xpath.evaluate(objectPath + "/symbol/@code", document);
 
+            return new CityWeather(
+                    temperature,
+                    windSpeed,
+                    cloudiness,
+                    precipitation,
+                    symbol
+            );
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
-
-
-
-
-        return 0;
     }
 }
