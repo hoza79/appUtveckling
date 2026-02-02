@@ -16,7 +16,9 @@ public class BasicWeatherApi {
 
     private final OkHttpClient client = new OkHttpClient();
 
+    //Api URL Compact för JSON, coords: Sundsvall
     private static final String urlJSON = "https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=62.3908&lon=17.3069";
+    //Api URL Classic för XML, coords: Sundsvall
     private static final String urlXML = "https://api.met.no/weatherapi/locationforecast/2.0/classic?lat=62.3908&lon=17.3069";
 
     /**
