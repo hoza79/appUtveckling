@@ -8,9 +8,7 @@ import okhttp3.Response;
 
 /**
  * WeatherApi
- *  - Blocking API client
  *  - Fetches raw weather data (JSON or XML)
- *  - No threading, no callbacks, no Android dependencies
  */
 public class WeatherApi {
 
